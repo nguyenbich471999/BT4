@@ -19,7 +19,7 @@ namespace BT4.Controllers
         {
             //lay gia tri ban ghi cuoi cung trong doi tuong person
             var perID = db.Persons.OrderByDescending(m => m.PersonID).FirstOrDefault().PersonID;
-            var newID = aukey.AutoGeneratekey(perID);
+            var newID = aukey.Generatekey(perID);
             ViewBag.newPerID = newID;
             return View(db.Employees.ToList());
         }
