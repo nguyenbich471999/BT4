@@ -131,7 +131,7 @@
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
-    <Compile Include="Controllers\stdnNewController.cs" />
+    <Compile Include="Controllers\stdNewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -208,6 +208,7 @@
     <Content Include="Views\StdNew\Edit.cshtml" />
     <Content Include="Views\StdNew\Index.cshtml" />
     <Content Include="Views\stdnNew\Index.cshtml" />
+    <Content Include="Views\stdnNew\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
