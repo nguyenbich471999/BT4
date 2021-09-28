@@ -1,17 +1,16 @@
 ﻿@model BT4.Models.Person
 
-@{
+{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Person</h4>
         <hr />
@@ -27,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PersonName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PersonName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.PersonName, new { @class = "ckeditor" })
                 @Html.ValidationMessageFor(model => model.PersonName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -46,4 +45,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ckeditor")
 }
