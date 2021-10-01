@@ -12,6 +12,7 @@ namespace BT4.Controllers
         {
             return View();
         }
+        [Authorize]
 
         public ActionResult About()
         {
