@@ -148,6 +148,10 @@
     <Compile Include="Migrations\202109190802139_Create_table_Employee.Designer.cs">
       <DependentUpon>202109190802139_Create_table_Employee.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202110011433571_Account.cs" />
+    <Compile Include="Migrations\202110011433571_Account.Designer.cs">
+      <DependentUpon>202110011433571_Account.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Acount.cs" />
@@ -560,6 +564,8 @@
     <Content Include="Views\StdNew\Index.cshtml" />
     <Content Include="Views\stdnNew\Index.cshtml" />
     <Content Include="Views\stdnNew\Create.cshtml" />
+    <Content Include="Views\Accont\Register.cshtml" />
+    <Content Include="Views\Accont\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -587,6 +593,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202109190802139_Create_table_Employee.resx">
       <DependentUpon>202109190802139_Create_table_Employee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110011433571_Account.resx">
+      <DependentUpon>202110011433571_Account.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

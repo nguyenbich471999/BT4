@@ -4,14 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using LapTrinhQuanLyDb.Models;
+using BT4.Models;
 
 namespace LapTrinhQuanLyDb.Controllers
 {
     public class AccontController : Controller
     {
         Encrytion encry = new Encrytion();
-        LTQLDbContext db = new LTQLDbContext();
+        LapTrinhQuanLyDBcontext db = new LapTrinhQuanLyDBcontext();
         // GET: Accont
         [HttpGet]
         public ActionResult Register()
@@ -26,7 +26,7 @@ namespace LapTrinhQuanLyDb.Controllers
             if (ModelState.IsValid)
             {
                 //mã hóa mật khẩu trước khi lưu vào database
-                acc.Password = encry.PasswordEncrytion(acc.Password);
+                acc.Password = encry.passwordEncrytion(acc.Password);
                 db.Accounts.Add(acc);
                 db.SaveChanges();
                 return RedirectToAction("Login", " Account");
@@ -45,7 +45,7 @@ namespace LapTrinhQuanLyDb.Controllers
         {
             if (ModelState.IsValid)
             {
-                string encrytionpass = encry.PasswordEncrytion(acc.Password);
+                string encrytionpass = encry.passwordEncrytion(acc.Password);
                 var model = db.Accounts.Where(m => m.UserName == acc.UserName && m.Password == encrytionpass).ToList().Count();
                 //thông tin đăng nhập chính xác
                 if (model == 1)
