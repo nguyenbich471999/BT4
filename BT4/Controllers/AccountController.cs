@@ -34,8 +34,18 @@ namespace LapTrinhQuanLyDb.Controllers
             return View(acc);
         }
         [HttpGet]
-        public ActionResult Login()
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
         {
+            if (checkSession() == 1)
+            {
+                return RedirectToAction("Index", "Home_Ad", new { Area = "Admins" });
+            }
+            else if (checkSession() == 2)
+            {
+                return RedirectToAction("Index", "Home_Le", new { Area = "Lectures" });
+            }
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
         [HttpPost]
@@ -66,5 +76,52 @@ namespace LapTrinhQuanLyDb.Controllers
             return RedirectToAction("Index", "Home");
 
         }
+        private int checkSession()
+        {
+            using (var db = new LapTrinhQuanLyDBcontext())
+            {
+                var user = HttpContext.Session["iduser"];
+                if (user != null)
+                {
+                    var role = db.Accounts.Find(user.ToString()).RoleID;
+                    if (role != null)
+                    {
+                        if (role.ToString() == "Admin")
+                        {
+                            return 1;
+                        }
+                        else if (role.ToString() == "NV")
+                        {
+                            return 2;
+                        }
+                    }
+                }
+            }
+
+            return 0;
+        }
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (String.IsNullOrEmpty(returnUrl) || returnUrl == "/")
+            {
+                if (checkSession() == 1)
+                {
+                    return RedirectToAction("Index", "Home_Ad", new { Area = "Admins" });
+                }
+                else if (checkSession() == 2)
+                {
+                    return RedirectToAction("Index", "Home_Le", new { Area = "Lectures" });
+                }
+            }
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home_Ad");
+            }
+        }
     }
 }
+

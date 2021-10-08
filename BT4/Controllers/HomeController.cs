@@ -8,7 +8,7 @@ namespace BT4.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize]
+        [Authorize(Roles ="Admin")]
         public ActionResult Index()
         {
             return View();
