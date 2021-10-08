@@ -164,7 +164,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Acount.cs" />
-    <Compile Include="Models\AutoGeneratekey.cs" />
+    <Compile Include="Models\MD5CryptoserviceProvider.cs" />
+    <Compile Include="Models\StringProcess.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Encrytion.cs" />
     <Compile Include="Models\keyAttribute.cs" />

@@ -10,7 +10,7 @@ namespace BT4.Controllers
     public class stdNewController : Controller
     {
         LapTrinhQuanLyDBcontext db = new LapTrinhQuanLyDBcontext();
-        AutoGeneratekey genkey = new AutoGeneratekey();
+        StringProcess genkey = new StringProcess();
         // GET: stdnNew
         public ActionResult Index()
         {

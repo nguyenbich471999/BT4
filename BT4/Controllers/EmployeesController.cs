@@ -13,7 +13,7 @@ namespace BT4.Controllers
     public class EmployeesController : Controller
     {
         private LapTrinhQuanLyDBcontext db = new LapTrinhQuanLyDBcontext();
-        AutoGeneratekey aukey = new AutoGeneratekey();
+        StringProcess aukey = new StringProcess();
         // GET: Employees
         public ActionResult Index()
         {

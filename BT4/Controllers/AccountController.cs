@@ -12,6 +12,9 @@ namespace LapTrinhQuanLyDb.Controllers
     {
         Encrytion encry = new Encrytion();
         LapTrinhQuanLyDBcontext db = new LapTrinhQuanLyDBcontext();
+        private object passTOMD5;
+        private object strPro;
+
         // GET: Accont
         [HttpGet]
         public ActionResult Register()
@@ -37,36 +40,41 @@ namespace LapTrinhQuanLyDb.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            if (checkSession() == 1)
+            if (checkSession() != 0)
             {
-                return RedirectToAction("Index", "Home_Ad", new { Area = "Admins" });
+                return RedirectToAction(returnUrl);
             }
-            else if (checkSession() == 2)
-            {
-                return RedirectToAction("Index", "Home_Le", new { Area = "Lectures" });
-            }
-            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.returnUrl = returnUrl;
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Login(Account acc)
+        public ActionResult Login(Account acc,string returnUrl)
         {
-            if (ModelState.IsValid)
+            try
             {
-                string encrytionpass = encry.passwordEncrytion(acc.Password);
-                var model = db.Accounts.Where(m => m.UserName == acc.UserName && m.Password == encrytionpass).ToList().Count();
-                //thông tin đăng nhập chính xác
-                if (model == 1)
+                if (!string.IsNullOrEmpty(acc.UserName) && !string.IsNullOrEmpty(acc.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(acc.UserName, true);
-                    return RedirectToAction("Index", " Home");
+                    using (var db = new LapTrinhQuanLyDBcontext())
+                    {
+                        var passToMD5 = strPro.GetMD5(acc.Password);
+                        var account = db.Accounts.Where(m => m.UserName.Equals(acc.UserName) && m.Password.Equals(passTOMD5)).Count();
+                        if (account == 1)
+                        {
+                            FormsAuthentication.SetAuthCookie(acc.UserName, false);
+                            Session["idUser"] = acc.UserName;
+                            Session["roleUser"] = acc.RoleID;
+                            return RedirectToLocal(returnUrl);
+                        }
+                        ModelState.AddModelError("", "thông tin đăng nhập chưa chính xác ");
+                    }
                 }
-                else
-                {
-                    ModelState.AddModelError("", "THông tin đăng nhập không chính xác ");
-                }
+                ModelState.AddModelError("", "UserName and password is required. ");
+            }
+            catch
+            {
+                ModelState.AddModelError("", "hệ thống đang được bảo chì vui lòng liên hệ với quản trị viên ");
             }
             return View(acc);
         }
